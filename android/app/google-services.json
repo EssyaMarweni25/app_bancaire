@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155148609778",
+    "project_id": "attijari-digital",
+    "storage_bucket": "attijari-digital.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155148609778:android:dcb6b732cefb8e04aac86b",
+        "android_client_info": {
+          "package_name": "com.example.attijari_digital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNfN4JgSc295E2EdyV0YasnY0CeNCN0g4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
