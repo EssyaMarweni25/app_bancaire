@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/home/ouvrir compte/signature.dart';
+import 'package:attijari_digital/ouvrir%20compte/signature.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ConnexionEtBiometrie extends StatefulWidget {

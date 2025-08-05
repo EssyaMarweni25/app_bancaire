@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'connexion.dart';
-import 'package:attijari_digital/home/ouvrir compte/identification.dart';
+import 'package:attijari_digital/ouvrir%20compte/identification.dart';
 
 class Profil extends StatefulWidget {
   @override

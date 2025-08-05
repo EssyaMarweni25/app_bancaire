@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/home/ouvrir compte/connexion.dart';
+import 'package:attijari_digital/ouvrir%20compte/connexion.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Signature extends StatefulWidget {

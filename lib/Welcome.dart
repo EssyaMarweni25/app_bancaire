@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:attijari_digital/home/ouvrir%20compte/identification.dart';
+import 'package:attijari_digital/ouvrir%20compte/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:attijari_digital/home/login.dart';
-import 'package:attijari_digital/home/ouvrir compte/identification.dart';
+import 'package:attijari_digital/ouvrir%20compte/identification.dart';
 
 void main() {
   runApp(Welcome());
@@ -57,15 +57,15 @@ class welcome extends StatelessWidget {
                         Positioned(
                           top: 40,
                           left: 30,
-                          child: _buildCard('assets/e_confort.png', 240),
+                          child: _buildCard('assets/carte/e_confort.png', 240),
                         ),
                         Positioned(
                           top: 20,
                           right: 30,
-                          child:
-                              _buildCard('assets/essentiel_premium.jpg', 250),
+                          child: _buildCard(
+                              'assets/carte/essentiel_premium.jpg', 250),
                         ),
-                        _buildCard('assets/pack_elan_gold_1.png', 260),
+                        _buildCard('assets/carte/pack_elan_gold_1.png', 260),
                       ],
                     ),
                   ),
