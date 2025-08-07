@@ -2,11 +2,10 @@ import 'package:attijari_digital/Tableau%20de%20bord/compte_profil.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/paiement.dart';
 import 'package:attijari_digital/home/chat.dart';
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/Tableau%20de%20bord/dashboard.dart';
-import 'package:attijari_digital/Tableau de bord/carte.dart';
-import 'package:attijari_digital/Tableau de bord/transfer.dart';
-import 'package:attijari_digital/Tableau de bord/historique_transfer.dart';
-import 'package:attijari_digital/Tableau de bord/setting.dart';
+import 'package:attijari_digital/Tableau%20de%20bord/carte.dart';
+import 'package:attijari_digital/Tableau%20de%20bord/transfer.dart';
+import 'package:attijari_digital/Tableau%20de%20bord/historique_transfer.dart';
+import 'package:attijari_digital/Tableau%20de%20bord/setting.dart';
 import 'dart:ui' as ui;
 import 'package:vector_math/vector_math_64.dart' as vmath;
 
@@ -26,7 +25,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   bool showBalance = true;
-
   final double solde = 15420.75;
 
   final List<Map<String, String>> accounts = [
@@ -34,6 +32,16 @@ class _DashboardState extends State<Dashboard> {
     {'bgImage': 'assets/carte/essentiel_premium.jpg'},
     {'bgImage': 'assets/carte/pack_elan_gold_1.png'},
   ];
+
+  // AJOUT DE LA VARIABLE MANQUANTE
+  final List<Map<String, String>> operations = [
+    {'libelle': 'Virement reçu', 'montant': '+500.00 DT'},
+    {'libelle': 'Paiement facture', 'montant': '-85.50 DT'},
+    {'libelle': 'Retrait ATM', 'montant': '-200.00 DT'},
+    {'libelle': 'Virement envoyé', 'montant': '-150.00 DT'},
+    {'libelle': 'Dépôt chèque', 'montant': '+1200.00 DT'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,8 +253,13 @@ class _DashboardState extends State<Dashboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Tous les Cartes',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Tous les Cartes',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
         SizedBox(height: 12),
         Container(
           height: 120,
@@ -270,7 +283,8 @@ class _DashboardState extends State<Dashboard> {
               } else {
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (_) => AjouterCarte()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => AjouterCarte()));
                   },
                   child: Container(
                     width: 220,
@@ -281,7 +295,13 @@ class _DashboardState extends State<Dashboard> {
                       border: Border.all(color: Colors.grey),
                     ),
                     child: Center(
-                      child: Icon(Icons.add, size: 40, color: Colors.black54),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add, size: 40, color: Colors.black54),
+                          SizedBox(height: 8),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -342,7 +362,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _buildOperationsRecente(dynamic operations) {
+  Widget _buildOperationsRecente() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -376,305 +396,6 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey[100],
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 1,
-//         title: Text(
-//           'Bonjour, ${widget.prenom} 👋',
-//           style: TextStyle(color: Colors.black87),
-//         ),
-//         centerTitle: false,
-//       ),
-//       drawer: Drawer(
-//         child: ListView(
-//           padding: EdgeInsets.zero,
-//           children: [
-//             DrawerHeader(
-//               decoration: BoxDecoration(color: widget.attijariYellow),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () {
-//                       Navigator.pop(context);
-//                       Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                           builder: (_) => Profile(
-//                             prenom: widget.prenom,
-//                             nom: widget.nom,
-//                             email: 'exemple@mail.com',
-//                             telephone: '12345678',
-//                           ),
-//                         ),
-//                       );
-//                     },
-//                     child: CircleAvatar(
-//                       radius: 30,
-//                       backgroundColor: Colors.white,
-//                       child: Text(
-//                         '${widget.prenom[0].toUpperCase()}${widget.nom[0].toUpperCase()}',
-//                         style: TextStyle(
-//                           color: widget.attijariRed,
-//                           fontWeight: FontWeight.bold,
-//                           fontSize: 24,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(height: 12),
-//                   Text(
-//                     'Bienvenue,',
-//                     style: TextStyle(color: Colors.white, fontSize: 18),
-//                   ),
-//                   SizedBox(height: 4),
-//                   Text(
-//                     '${widget.prenom} ${widget.nom}',
-//                     style: TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 19,
-//                         fontWeight: FontWeight.bold),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.dashboard),
-//               title: Text('Tableau de bord'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.credit_card),
-//               title: Text('Carte'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (_) => Carte()),
-//                 );
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.account_balance),
-//               title: Text('Virements'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (_) => const Transfer()),
-//                 );
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.account_balance_wallet),
-//               title: Text('Paiement'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (_) => const PaiementFacture()),
-//                 );
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.history),
-//               title: Text('Historique'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (_) => const HistoriqueTransfer()),
-//                 );
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.settings),
-//               title: Text('Paramètre'),
-//               onTap: () {
-//                 Navigator.pop(context);
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (_) => const Setting()),
-//                 );
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.support_agent),
-//               title: Text('Assistance'),
-//               onTap: () {
-//                 Navigator.push(
-//                     context, MaterialPageRoute(builder: (_) => const Chat()));
-//               },
-//             ),
-//             ListTile(
-//               leading: Icon(Icons.logout),
-//               title: Text('Déconnexion'),
-//               onTap: () {
-//                 // Action logout
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             // Solde
-//             Card(
-//               shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(12)),
-//               color: Colors.white,
-//               elevation: 3,
-//               child: Padding(
-//                 padding:
-//                     const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text('Votre solde',
-//                             style: TextStyle(color: Colors.grey[600])),
-//                         SizedBox(height: 8),
-//                         Text(
-//                           showBalance
-//                               ? '${solde.toStringAsFixed(2)} DT'
-//                               : '•••••••',
-//                           style: TextStyle(
-//                             fontSize: 24,
-//                             fontWeight: FontWeight.bold,
-//                             color: Colors.black87,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     IconButton(
-//                       icon: Icon(
-//                         showBalance ? Icons.visibility_off : Icons.visibility,
-//                         color: Colors.grey[700],
-//                       ),
-//                       onPressed: () {
-//                         setState(() {
-//                           showBalance = !showBalance;
-//                         });
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-
-//             SizedBox(height: 30),
-
-//             // Cartes
-//             Text(
-//               'Tous les Cartes',
-//               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//             ),
-//             SizedBox(height: 12),
-//             Container(
-//               height: 120,
-//               child: ListView.builder(
-//                 scrollDirection: Axis.horizontal,
-//                 itemCount: accounts.length + 1,
-//                 itemBuilder: (context, index) {
-//                   if (index < accounts.length) {
-//                     final account = accounts[index];
-//                     return Container(
-//                       width: 220,
-//                       margin: EdgeInsets.only(right: 16),
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(16),
-//                         image: DecorationImage(
-//                           image: AssetImage(account['bgImage']!),
-//                           fit: BoxFit.cover,
-//                         ),
-//                       ),
-//                     );
-//                   } else {
-//                     // Carte ajouter
-//                     return GestureDetector(
-//                       onTap: () {
-//                         Navigator.push(
-//                           context,
-//                           MaterialPageRoute(builder: (_) => AjouterCarte()),
-//                         );
-//                         // Ajouter une nouvelle carte
-//                       },
-//                       child: Container(
-//                         width: 220,
-//                         margin: EdgeInsets.only(right: 16),
-//                         decoration: BoxDecoration(
-//                           color: Colors.grey[300],
-//                           borderRadius: BorderRadius.circular(16),
-//                           border: Border.all(color: Colors.grey),
-//                         ),
-//                         child: Center(
-//                           child:
-//                               Icon(Icons.add, size: 40, color: Colors.black54),
-//                         ),
-//                       ),
-//                     );
-//                   }
-//                 },
-//               ),
-//             ),
-
-//             SizedBox(height: 30),
-
-//             // Opérations récentes
-//             Text(
-//               'Opérations récentes',
-//               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-//             ),
-//             SizedBox(height: 12),
-//             Expanded(
-//               child: ListView.builder(
-//                 itemCount: operations.length,
-//                 itemBuilder: (context, index) {
-//                   return Card(
-//                     child: ListTile(
-//                       leading: Icon(Icons.swap_horiz, color: Colors.blueAccent),
-//                       title: Text(operations[index]['libelle']!),
-//                       trailing: Text(
-//                         operations[index]['montant']!,
-//                         style: TextStyle(
-//                           color: operations[index]['montant']!.startsWith('+')
-//                               ? Colors.green
-//                               : Colors.red,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           Navigator.push(
-//               context, MaterialPageRoute(builder: (_) => const Chat()));
-//         },
-//         child: Icon(Icons.support_agent, color: Colors.white),
-//         backgroundColor: widget.attijariRed,
-//       ),
-//     );
-//   }
-// }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class AjouterCarte extends StatefulWidget {
@@ -686,8 +407,6 @@ class _AjouterCarteState extends State<AjouterCarte> {
   String selectedCategory = 'Particuliers & Professions Libérales';
   int? selectedCardIndex;
   int? hoveredIndex;
-  // int? hoveredIndex;
-  // bool isHovered = false;
 
   final Color attijariYellow = const Color(0xFFF4B500);
   final Color attijariRed = const Color(0xFFE2471C);
