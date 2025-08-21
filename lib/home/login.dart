@@ -24,63 +24,6 @@ Future<String> envoyerQuestion(String question) async {
     throw Exception("Erreur : ${response.statusCode}");
   }
 }
-//void main() => runApp(AttijariConnectApp());
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print("Message en arrière-plan : ${message.messageId}");
-}
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-// Demande de permission iOS & Android
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    print(' Notifications autorisées');
-  } else {
-    print(' Notifications refusées');
-  }
-
-// Token FCM (à utiliser pour tester les messages ciblés
-  String? token = await messaging.getToken();
-  print("Token FCM : $token");
-
-// Message en foreground
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print(" Nouveau message en foreground : ${message.notification?.title}");
-  });
-
-// Message cliqué depuis background
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print("App ouverte via notification : ${message.notification?.title}");
-  });
-
-  runApp(AttijariConnectApp());
-}
-
-class AttijariConnectApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Login(),
-      routes: {
-        '/chat': (context) => const Chat(),
-      },
-    );
-  }
-}
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -198,37 +141,52 @@ class Login extends StatelessWidget {
                               ),
                               child: Text(
                                 'Se connecter',
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(height: 20),
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/forgot-password');
+                                Navigator.pushNamed(context, '/forgot-password');
                               },
                               child: Text(
                                 'Mot de passe oublié ?',
-                                style: TextStyle(color: Colors.white70),
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.lock_outline,
-                                    color: Colors.white70, size: 18),
-                                SizedBox(width: 8),
                                 Text(
-                                  'Connexion sécurisée RGPD',
+                                  'Pas encore de compte ? ',
                                   style: TextStyle(
                                     color: Colors.white70,
-                                    fontSize: 12,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/');
+                                  },
+                                  child: Text(
+                                    'Créer un compte',
+                                    style: TextStyle(
+                                      color: attijariYellow,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20),
                           ],
                         ),
                       ),

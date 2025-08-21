@@ -44,7 +44,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    #- assets/translations/
     - assets/logo.png
     - assets/image/appbar1.png
     - assets/attijari-bank.png
@@ -56,10 +55,9 @@ flutter:
     - assets/carte/Particulier & Professions/essentiel_premium.jpg
     - assets/carte/Particulier & Professions/Essentiel_titanium.jpg
     - assets/carte/Petite entreprise/entreprneur.png
-    - assets/carte/e_confort.png
     - assets/carte/Petite entreprise/premier.png
-    - assets/carte/Marocains/pack_elan_gold_1.png
     - assets/carte/Marocains/Pack_elan_gold.png
+    - assets/carte/Marocains/Pack_elan_gold_1.png
     - assets/carte/Marocains/Pack_platinium.png
     - assets/carte/Marocains/Pack_signature.png
     
