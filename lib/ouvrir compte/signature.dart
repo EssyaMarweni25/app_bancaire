@@ -1,9 +1,14 @@
 import 'dart:typed_data';
 import 'dart:ui';
-
+import 'package:attijari_digital/home/login.dart';
+import 'package:attijari_digital/ouvrir%20compte/signatureProvider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:attijari_digital/ouvrir%20compte/connexion.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pinput/pinput.dart'; // Import pinput
+import 'package:provider/provider.dart'; // Import provider
+import 'package:attijari_digital/ouvrir compte/signatureProvider.dart';
 
 class Signature extends StatefulWidget {
   @override
@@ -38,6 +43,8 @@ class _SignatureState extends State<Signature> {
 
   @override
   Widget build(BuildContext context) {
+    // 🪄 Access the provider to get the state
+    final signatureProvider = Provider.of<SignatureProvider>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -79,26 +86,28 @@ class _SignatureState extends State<Signature> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
 
                         // 🔏 Signature ou image
                         Text(
                           "Veuillez signer ci-dessous :",
                           style: TextStyle(color: Colors.white70),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         GestureDetector(
                           onPanUpdate: (details) {
-                            RenderBox box =
-                                context.findRenderObject() as RenderBox;
-                            Offset localPosition =
-                                box.globalToLocal(details.globalPosition);
-                            setState(() => _points = List.from(_points)
-                              ..add(localPosition));
+                            RenderBox? box =
+                                context.findRenderObject() as RenderBox?;
+                            if (box != null) {
+                              Offset localPosition =
+                                  box.globalToLocal(details.globalPosition);
+                              setState(() => _points = List.from(_points)
+                                ..add(localPosition));
+                            }
                           },
                           onPanEnd: (_) => _points.add(null),
                           child: Container(
-                            height: 150,
+                            height: 120,
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.05),
                               borderRadius: BorderRadius.circular(12),
@@ -114,7 +123,7 @@ class _SignatureState extends State<Signature> {
                           ),
                         ),
 
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -131,34 +140,50 @@ class _SignatureState extends State<Signature> {
                           ],
                         ),
 
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
 
                         // 🔐 OTP
-                        TextFormField(
-                          controller: otpController,
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            labelText: "Code OTP reçu par SMS",
-                            labelStyle: TextStyle(color: Colors.white70),
-                            filled: true,
-                            fillColor: Colors.white.withOpacity(0.05),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                            prefixIcon: Icon(Icons.lock, color: Colors.white70),
-                          ),
-                        ),
+                        // 🔐 Remplacé par Pinput
+                        Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Pinput(
+                              length: 6,
+                              onChanged: (pin) {
+                                signatureProvider.setOtp(pin);
+                              },
+                              defaultPinTheme: PinTheme(
+                                width: 56,
+                                height: 56,
+                                textStyle: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.05),
+                                  border: Border.all(
+                                      color: Colors.white.withOpacity(0.3)),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              focusedPinTheme: PinTheme(
+                                width: 56,
+                                height: 56,
+                                decoration: BoxDecoration(
+                                  color: attijariRed.withOpacity(0.1),
+                                  border:
+                                      Border.all(color: attijariRed, width: 2),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            )),
 
                         const SizedBox(height: 10),
 
                         // ☑️ CGU
                         CheckboxListTile(
-                          value: cguAccepted,
+                          value: signatureProvider.cguAccepted,
                           onChanged: (value) {
-                            setState(() => cguAccepted = value ?? false);
+                            signatureProvider.setCguAccepted(value ?? false);
                           },
                           title: Text(
                             "J’accepte les Conditions Générales de Banque",
@@ -176,14 +201,15 @@ class _SignatureState extends State<Signature> {
                           onPressed:
                               (cguAccepted && otpController.text.length == 6)
                                   ? () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (_) => AlertDialog(
-                                          title: Text("Compte soumis !"),
-                                          content: Text(
-                                              "Votre demande a été enregistrée."),
-                                        ),
-                                      );
+                                      Navigator.pushNamed(
+                                          context, '/otp_verification');
+
+                                      // Navigator.pushReplacement(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           Login()), // ta page login
+                                      // );
                                     }
                                   : null,
                           style: ElevatedButton.styleFrom(
@@ -251,5 +277,8 @@ class SignaturePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(SignaturePainter oldDelegate) => true;
+  bool shouldRepaint(SignaturePainter oldDelegate) {
+    return oldDelegate.points.length != points.length ||
+        !listEquals(oldDelegate.points, points);
+  }
 }
