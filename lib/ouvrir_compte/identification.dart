@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'profil.dart';
 
 class Identification extends StatefulWidget {
+  const Identification({super.key});
+
   @override
   State<Identification> createState() => _IdentificationState();
 }
@@ -68,45 +70,68 @@ class _IdentificationState extends State<Identification> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text("Étape 1 : Identification",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
+                          Text(
+                            "Étape 1 : Identification",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           const SizedBox(height: 30),
 
                           // Nom complet
                           buildInputField(
-                              "Nom complet", nomCtrl, Icons.person_outline),
+                            "Nom complet",
+                            nomCtrl,
+                            Icons.person_outline,
+                          ),
 
                           // Date de naissance
-                          buildInputField("Date de naissance",
-                              dateNaissanceCtrl, Icons.calendar_today),
+                          buildInputField(
+                            "Date de naissance",
+                            dateNaissanceCtrl,
+                            Icons.calendar_today,
+                          ),
 
                           // CIN / Passeport
                           buildInputField(
-                              "CIN / Passeport", cinCtrl, Icons.badge_outlined),
+                            "CIN / Passeport",
+                            cinCtrl,
+                            Icons.badge_outlined,
+                          ),
 
                           // Nationalité
-                          buildInputField("Nationalité", nationaliteCtrl,
-                              Icons.flag_outlined),
+                          buildInputField(
+                            "Nationalité",
+                            nationaliteCtrl,
+                            Icons.flag_outlined,
+                          ),
 
                           // Sexe
                           buildInputField("Sexe", sexeCtrl, Icons.wc),
 
                           // Adresse
-                          buildInputField("Adresse actuelle", adresseCtrl,
-                              Icons.location_on_outlined),
+                          buildInputField(
+                            "Adresse actuelle",
+                            adresseCtrl,
+                            Icons.location_on_outlined,
+                          ),
 
                           // Téléphone
                           buildInputField(
-                              "Téléphone", telCtrl, Icons.phone_android),
+                            "Téléphone",
+                            telCtrl,
+                            Icons.phone_android,
+                          ),
 
                           // Email
                           buildInputField(
-                              "Email", emailCtrl, Icons.email_outlined,
-                              inputType: TextInputType.emailAddress),
+                            "Email",
+                            emailCtrl,
+                            Icons.email_outlined,
+                            inputType: TextInputType.emailAddress,
+                          ),
 
                           const SizedBox(height: 20),
 
@@ -114,18 +139,24 @@ class _IdentificationState extends State<Identification> {
                           ElevatedButton.icon(
                             onPressed: _pickImage,
                             icon: Icon(Icons.upload_file, color: Colors.white),
-                            label: Text("Téléverser la photo de la CIN",
-                                style: TextStyle(color: Colors.white)),
+                            label: Text(
+                              "Téléverser la photo de la CIN",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white.withOpacity(0.1),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                           ),
                           if (_imageCIN != null) ...[
                             const SizedBox(height: 10),
-                            Image.file(_imageCIN!,
-                                height: 100, fit: BoxFit.cover),
+                            Image.file(
+                              _imageCIN!,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                           ],
 
                           const SizedBox(height: 30),
@@ -159,7 +190,9 @@ class _IdentificationState extends State<Identification> {
                               child: Container(
                                 alignment: Alignment.center,
                                 constraints: BoxConstraints(
-                                    minWidth: 150, minHeight: 50),
+                                  minWidth: 150,
+                                  minHeight: 50,
+                                ),
                                 child: Text(
                                   'Suivant',
                                   style: TextStyle(
@@ -185,8 +218,11 @@ class _IdentificationState extends State<Identification> {
   }
 
   Widget buildInputField(
-      String label, TextEditingController controller, IconData icon,
-      {TextInputType inputType = TextInputType.text}) {
+    String label,
+    TextEditingController controller,
+    IconData icon, {
+    TextInputType inputType = TextInputType.text,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: TextFormField(
@@ -217,7 +253,9 @@ class _IdentificationState extends State<Identification> {
 
 // Champ spécial pour la date de naissance avec date picker
 Widget buildDatePickerField(
-    BuildContext context, TextEditingController controller) {
+  BuildContext context,
+  TextEditingController controller,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 20),
     child: TextFormField(
@@ -250,12 +288,10 @@ Widget buildDatePickerField(
           locale: const Locale('fr', 'FR'),
         );
 
-        if (pickedDate != null) {
-          String formattedDate = "${pickedDate.day.toString().padLeft(2, '0')}/"
-              "${pickedDate.month.toString().padLeft(2, '0')}/"
-              "${pickedDate.year.toString().substring(2)}";
-          controller.text = formattedDate;
-        }
+        String formattedDate = "${pickedDate?.day.toString().padLeft(2, '0')}/"
+            "${pickedDate?.month.toString().padLeft(2, '0')}/"
+            "${pickedDate?.year.toString().substring(2)}";
+        controller.text = formattedDate;
       },
     ),
   );

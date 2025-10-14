@@ -1,15 +1,16 @@
 import 'dart:ui';
 
-import 'package:attijari_digital/ouvrir%20compte/identification.dart';
+import 'package:attijari_digital/ouvrir_compte/identification.dart';
 import 'package:flutter/material.dart';
 import 'package:attijari_digital/home/login.dart';
-import 'package:attijari_digital/ouvrir%20compte/identification.dart';
 
 void main() {
   runApp(Welcome());
 }
 
 class Welcome extends StatelessWidget {
+  const Welcome({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,6 +22,8 @@ class Welcome extends StatelessWidget {
 }
 
 class welcome extends StatelessWidget {
+  const welcome({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +76,7 @@ class welcome extends StatelessWidget {
                   const SizedBox(height: 60),
 
                   Text(
-                    'Gérez votre argent\navec facilité, sécurité\net élégance',
+                    'La banque nouvelle \ngénération simple \net sécurisée.',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,

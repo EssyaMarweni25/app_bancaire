@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vector_math/vector_math.dart' as vmath;
-import 'dart:ui' as ui;
-import 'package:attijari_digital/Tableau de bord/dashboard.dart';
 
 class AjouterCarte extends StatefulWidget {
-  const AjouterCarte({Key? key}) : super(key: key);
+  const AjouterCarte({super.key});
 
   @override
   _AjouterCarteState createState() => _AjouterCarteState();
@@ -487,7 +484,7 @@ Personnalisable depuis l’application Attijari Mobile avec :
   }
 
   void _showAddCardForm(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     String? type;
     String? numero;
     String? expiry;
@@ -503,7 +500,7 @@ Personnalisable depuis l’application Attijari Mobile avec :
         ),
         content: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -542,8 +539,9 @@ Personnalisable depuis l’application Attijari Mobile avec :
                   ),
                   keyboardType: TextInputType.datetime,
                   validator: (val) {
-                    if (val == null || val.isEmpty)
+                    if (val == null || val.isEmpty) {
                       return "Entrer la date d'expiration";
+                    }
                     if (!RegExp(r'^\d{2}/\d{2}$').hasMatch(val)) {
                       return "Format: MM/YY";
                     }
@@ -587,8 +585,8 @@ Personnalisable depuis l’application Attijari Mobile avec :
           ),
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
 
                 // Masquer le numéro de carte pour la sécurité
                 String numeroMasque = '**** **** **** ${numero!.substring(12)}';

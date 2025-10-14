@@ -4,25 +4,18 @@ import 'package:attijari_digital/Tableau%20de%20bord/compte_profil.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/depot.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/devise.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/epargne.dart';
-import 'package:attijari_digital/Tableau%20de%20bord/paiement.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/plus.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/pret.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/rapport.dart';
 import 'package:attijari_digital/home/chat.dart';
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/Tableau%20de%20bord/carte.dart';
 import 'package:attijari_digital/Tableau%20de%20bord/transfer.dart';
-import 'package:attijari_digital/Tableau%20de%20bord/historique_transfer.dart';
-import 'package:attijari_digital/Tableau%20de%20bord/setting.dart';
-import 'package:flutter/services.dart';
-import 'dart:ui' as ui;
-import 'package:vector_math/vector_math_64.dart' as vmath;
 
 class Dashboard extends StatefulWidget {
   final String prenom;
   final String nom;
 
-  Dashboard({required this.prenom, required this.nom});
+  Dashboard({super.key, required this.prenom, required this.nom});
 
   final Color attijariYellow = const Color(0xFFF4B500);
   final Color attijariRed = const Color(0xFFE2471C);
@@ -46,14 +39,53 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        title: Text(
-          'Bonjour, ${widget.prenom} 👋',
-          style: TextStyle(color: Colors.black87),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color.fromARGB(255, 68, 44, 10), Color(0xFFBC430D)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          //  AppBar(
+          //   backgroundColor: Colors.white,
+          elevation: 1,
+          title: Text(
+            'Bonjour, ${widget.prenom} 👋',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => Profile(
+                        prenom: widget.prenom,
+                        nom: widget.nom,
+                        email: 'exemple@mail.com',
+                        telephone: '12345678',
+                      ),
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.person, color: Colors.blueGrey[900]),
+                ),
+              ),
+            ),
+          ],
         ),
-        centerTitle: false,
       ),
       drawer: _buildDrawer(),
       body: Padding(
@@ -77,8 +109,8 @@ class _DashboardState extends State<Dashboard> {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => const Chat()));
         },
-        child: Icon(Icons.support_agent, color: Colors.white),
         backgroundColor: widget.attijariRed,
+        child: Icon(Icons.support_agent, color: Colors.white),
       ),
     );
   }
@@ -193,7 +225,7 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
         SizedBox(height: 12),
-        Container(
+        SizedBox(
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

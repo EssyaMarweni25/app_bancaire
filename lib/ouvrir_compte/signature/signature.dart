@@ -1,16 +1,14 @@
-import 'dart:typed_data';
 import 'dart:ui';
-import 'package:attijari_digital/home/login.dart';
-import 'package:attijari_digital/ouvrir%20compte/signatureProvider.dart';
+import 'package:attijari_digital/ouvrir_compte/signature/signatureProvider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/ouvrir%20compte/connexion.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pinput/pinput.dart'; // Import pinput
 import 'package:provider/provider.dart'; // Import provider
-import 'package:attijari_digital/ouvrir compte/signatureProvider.dart';
 
 class Signature extends StatefulWidget {
+  const Signature({super.key});
+
   @override
   _SignatureState createState() => _SignatureState();
 }

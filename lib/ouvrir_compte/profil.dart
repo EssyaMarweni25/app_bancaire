@@ -2,9 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'connexion.dart';
-import 'package:attijari_digital/ouvrir%20compte/identification.dart';
 
 class Profil extends StatefulWidget {
+  const Profil({super.key});
+
   @override
   State<Profil> createState() => _ProfilState();
 }
@@ -226,7 +227,7 @@ class _ProfilState extends State<Profil> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: DropdownButtonFormField<String>(
-        value: value,
+        initialValue: value,
         style: TextStyle(color: Colors.white),
         dropdownColor: Colors.black87,
         iconEnabledColor: Colors.white70,

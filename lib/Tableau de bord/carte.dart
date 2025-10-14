@@ -3,6 +3,8 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 /// Page principale affichant la liste des cartes
 class Carte extends StatefulWidget {
+  const Carte({super.key});
+
   @override
   _CarteState createState() => _CarteState();
 }
@@ -271,7 +273,8 @@ class CarteDetailScreen extends StatelessWidget {
   final String expiry;
   final String cvv;
 
-  CarteDetailScreen({
+  const CarteDetailScreen({
+    super.key,
     required this.type,
     required this.number,
     required this.status,
@@ -451,6 +454,8 @@ class CarteDetailScreen extends StatelessWidget {
 
 /// Formulaire pour saisir une nouvelle carte
 class CarteFormScreen extends StatefulWidget {
+  const CarteFormScreen({super.key});
+
   @override
   _CarteFormScreenState createState() => _CarteFormScreenState();
 }
@@ -546,22 +551,22 @@ class _CarteFormScreenState extends State<CarteFormScreen> {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text("Annuler"),
                           style: OutlinedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 16),
                           ),
+                          child: Text("Annuler"),
                         ),
                       ),
                       SizedBox(width: 16),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: _saveCard,
-                          child: Text("Enregistrer"),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurple,
                             foregroundColor: Colors.white,
                             padding: EdgeInsets.symmetric(vertical: 16),
                           ),
+                          child: Text("Enregistrer"),
                         ),
                       ),
                     ],
@@ -649,7 +654,7 @@ class _CarteFormScreenState extends State<CarteFormScreen> {
 class Historique extends StatelessWidget {
   final String cardNumber;
 
-  Historique({required this.cardNumber});
+  const Historique({super.key, required this.cardNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -709,7 +714,7 @@ class Historique extends StatelessWidget {
 class Parametres extends StatefulWidget {
   final String cardNumber;
 
-  Parametres({required this.cardNumber});
+  const Parametres({super.key, required this.cardNumber});
 
   @override
   _ParametresState createState() => _ParametresState();

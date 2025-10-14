@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:attijari_digital/home/chat.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:attijari_digital/home/password/password.dart';
 
 Future<String> envoyerQuestion(String question) async {
   final url = Uri.parse("http://192.168.134.109:8000/mobile/chat/?q=$question");
@@ -70,6 +69,8 @@ void main() async {
 }
 
 class AttijariConnectApp extends StatelessWidget {
+  const AttijariConnectApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -143,7 +144,7 @@ class Login extends StatelessWidget {
                               keyboardType: TextInputType.number,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
-                                labelText: 'Numéro client',
+                                labelText: 'CIN',
                                 labelStyle: TextStyle(color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.05),
@@ -151,11 +152,13 @@ class Login extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
                                 ),
-                                prefixIcon:
-                                    Icon(Icons.person, color: Colors.white70),
+                                prefixIcon: Icon(Icons.credit_card,
+                                    color: Colors.white70),
                               ),
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
+                                FilteringTextInputFormatter.allow(
+                                  RegExp(r'[0-9]'),
+                                )
                               ],
                             ),
                             SizedBox(height: 20),
@@ -198,14 +201,18 @@ class Login extends StatelessWidget {
                               ),
                               child: Text(
                                 'Se connecter',
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 16),
                               ),
                             ),
                             SizedBox(height: 15),
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/forgot-password');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Password()),
+                                );
                               },
                               child: Text(
                                 'Mot de passe oublié ?',

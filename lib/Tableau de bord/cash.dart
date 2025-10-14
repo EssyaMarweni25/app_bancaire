@@ -8,7 +8,7 @@ class Cashback extends StatefulWidget {
 }
 
 class _CashbackState extends State<Cashback> {
-  double _totalCashback = 48.75; // montant cumulé fictif
+  final double _totalCashback = 48.75; // montant cumulé fictif
 
   // Liste fictive des transactions avec cashback
   final List<Map<String, dynamic>> _transactions = [

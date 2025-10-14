@@ -8,13 +8,13 @@ class Profile extends StatefulWidget {
   final String? avatarPath;
 
   const Profile({
-    Key? key,
+    super.key,
     required this.prenom,
     required this.nom,
     required this.email,
     required this.telephone,
     this.avatarPath,
-  }) : super(key: key);
+  });
 
   @override
   State<Profile> createState() => _ProfileState();

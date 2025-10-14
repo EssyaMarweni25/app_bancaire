@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/home/chat.dart';
 import 'package:http/http.dart' as http;
 
 class Chat extends StatefulWidget {

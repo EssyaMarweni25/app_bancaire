@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaiementFacture extends StatefulWidget {
-  const PaiementFacture({Key? key}) : super(key: key);
+  const PaiementFacture({super.key});
 
   @override
   State<PaiementFacture> createState() => _PaiementFactureState();
@@ -89,7 +89,7 @@ class _PaiementFactureState extends State<PaiementFacture> {
                     )
                     .toList(),
                 onChanged: (val) => setState(() => _selectedFactureType = val),
-                value: _selectedFactureType,
+                initialValue: _selectedFactureType,
                 validator: (value) =>
                     value == null ? 'Veuillez sélectionner un type' : null,
               ),

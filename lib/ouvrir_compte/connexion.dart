@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:attijari_digital/ouvrir%20compte/signature.dart';
+import 'package:attijari_digital/ouvrir_compte/signature/signature.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ConnexionEtBiometrie extends StatefulWidget {
+  const ConnexionEtBiometrie({super.key});
+
   @override
   _ConnexionEtBiometrieState createState() => _ConnexionEtBiometrieState();
 }
@@ -34,13 +36,15 @@ class _ConnexionEtBiometrieState extends State<ConnexionEtBiometrie> {
   }
 
   String? validatePassword(String? value) {
-    if (value == null || value.isEmpty)
+    if (value == null || value.isEmpty) {
       return 'Veuillez entrer le mot de passe';
+    }
     if (value.length < 8) return 'Au moins 8 caractères';
     if (!RegExp(r'[A-Z]').hasMatch(value)) return 'Au moins une majuscule';
     if (!RegExp(r'[0-9]').hasMatch(value)) return 'Au moins un chiffre';
-    if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(value))
+    if (!RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(value)) {
       return 'Au moins un symbole';
+    }
     return null;
   }
 

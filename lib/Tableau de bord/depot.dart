@@ -177,10 +177,12 @@ class _DepotState extends State<Depot> {
     if (v == null || v.trim().isEmpty) return 'Le numéro de compte est requis';
     final s = v.trim();
     final digitsOnly = RegExp(r'^[0-9]+$');
-    if (!digitsOnly.hasMatch(s))
+    if (!digitsOnly.hasMatch(s)) {
       return 'Le numéro de compte doit contenir seulement des chiffres';
-    if (s.length < 8 || s.length > 20)
+    }
+    if (s.length < 8 || s.length > 20) {
       return 'Le numéro de compte doit faire 8 à 20 chiffres';
+    }
     return null;
   }
 

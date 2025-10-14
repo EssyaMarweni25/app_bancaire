@@ -112,7 +112,7 @@ class _DeviseState extends State<Devise> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _fromDevise,
+                          initialValue: _fromDevise,
                           decoration: const InputDecoration(
                             labelText: 'De',
                             border: OutlineInputBorder(),
@@ -136,7 +136,7 @@ class _DeviseState extends State<Devise> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _toDevise,
+                          initialValue: _toDevise,
                           decoration: const InputDecoration(
                             labelText: 'Vers',
                             border: OutlineInputBorder(),
